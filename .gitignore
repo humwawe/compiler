@@ -1,2 +1,4 @@
-./idea
-./src/test
+compiler.iml
+/target/
+/src/test/
+/.idea/
