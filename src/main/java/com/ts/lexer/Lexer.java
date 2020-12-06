@@ -31,9 +31,8 @@ public class Lexer {
             // 删除注释
             if (c == '/') {
                 if (lookahead == '/') {
-                    while (it.hasNext() && (c = it.next()) != '\n') {
+                    while (it.hasNext() && it.next() != '\n') {
                     }
-                    ;
                     continue;
                 } else if (lookahead == '*') {
                     it.next();//多读一个* 避免/*/通过
@@ -66,7 +65,6 @@ public class Lexer {
 
             if (AlphabetHelper.isLetter(c)) {
                 it.putBack();
-                ;
                 tokens.add(Token.makeVarOrKeyword(it));
                 continue;
             }

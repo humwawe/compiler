@@ -149,6 +149,8 @@ public class Token {
                             return new Token(TokenType.OPERATOR, ",");
                         case ';':
                             return new Token(TokenType.OPERATOR, ";");
+                        default:
+                            break;
                     }
                     break;
                 case 1:
