@@ -3,6 +3,7 @@ package com.ts.lexer;
 
 import com.ts.common.AlphabetHelper;
 import com.ts.common.PeekIterator;
+import com.ts.lexer.exception.LexicalException;
 
 public class Token {
     TokenType type;

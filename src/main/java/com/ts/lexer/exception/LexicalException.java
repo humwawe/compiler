@@ -1,4 +1,4 @@
-package com.ts.lexer;
+package com.ts.lexer.exception;
 
 /**
  * @author hum

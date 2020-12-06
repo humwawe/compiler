@@ -1,6 +1,7 @@
 package com.ts.lexer;
 
 import com.ts.common.PeekIterator;
+import com.ts.lexer.exception.LexicalException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

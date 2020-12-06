@@ -1,5 +1,6 @@
 package com.ts.lexer;
 
+import com.ts.lexer.exception.LexicalException;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
