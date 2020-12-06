@@ -12,7 +12,7 @@ public class CallExpr extends Expr {
     }
 
     public static ASTNode parse(ASTNode factor, PeekTokenIterator it) throws ParseException {
-        var expr = new CallExpr();
+        CallExpr expr = new CallExpr();
         expr.addChild(factor);
 
         it.nextMatch("(");

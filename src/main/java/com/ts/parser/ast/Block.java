@@ -10,7 +10,7 @@ public class Block extends Stmt {
 
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
         it.nextMatch("{");
-        var block = new Block();
+        Block block = new Block();
         ASTNode stmt;
         while ((stmt = Stmt.parseStmt(it)) != null) {
             block.addChild(stmt);

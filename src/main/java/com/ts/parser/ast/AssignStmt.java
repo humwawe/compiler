@@ -1,6 +1,7 @@
 package com.ts.parser.ast;
 
 
+import com.ts.lexer.Token;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.PeekTokenIterator;
 
@@ -11,15 +12,15 @@ public class AssignStmt extends Stmt {
     }
 
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
-        var stmt = new AssignStmt();
-        var tkn = it.peek();
-        var factor = Factor.parse(it);
+        AssignStmt stmt = new AssignStmt();
+        Token tkn = it.peek();
+        ASTNode factor = Factor.parse(it);
         if (factor == null) {
             throw new ParseException(tkn);
         }
         stmt.addChild(factor);
-        var lexeme = it.nextMatch("=");
-        var expr = Expr.parse(it);
+        Token lexeme = it.nextMatch("=");
+        ASTNode expr = Expr.parse(it);
         stmt.addChild(expr);
         stmt.setLexeme(lexeme);
         return stmt;

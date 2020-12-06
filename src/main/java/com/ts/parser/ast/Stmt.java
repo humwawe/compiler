@@ -1,5 +1,6 @@
 package com.ts.parser.ast;
 
+import com.ts.lexer.Token;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.PeekTokenIterator;
 
@@ -15,8 +16,8 @@ public abstract class Stmt extends ASTNode {
         if (!it.hasNext()) {
             return null;
         }
-        var token = it.next();
-        var lookahead = it.peek();
+        Token token = it.next();
+        Token lookahead = it.peek();
         it.putBack();
 
         if (token.isVariable() && lookahead != null && "=".equals(lookahead.getValue())) {

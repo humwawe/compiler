@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ParserUtils {
     // Prefix
@@ -15,11 +16,11 @@ public class ParserUtils {
             return node.getLexeme().getValue();
         }
 
-        var prts = new ArrayList<String>();
-        for (var child : node.getChildren()) {
+        List<String> prts = new ArrayList<>();
+        for (ASTNode child : node.getChildren()) {
             prts.add(toPostfixExpression(child));
         }
-        var lexemeStr = node.getLexeme() != null ? node.getLexeme().getValue() : "";
+        String lexemeStr = node.getLexeme() != null ? node.getLexeme().getValue() : "";
         if (lexemeStr.length() > 0) {
             return StringUtils.join(prts, " ") + " " + lexemeStr;
         } else {
@@ -28,13 +29,13 @@ public class ParserUtils {
     }
 
     public static String toBFSString(ASTNode root, int max) {
-        var queue = new LinkedList<ASTNode>();
-        var list = new ArrayList<String>();
+        LinkedList<ASTNode> queue = new LinkedList<>();
+        List<String> list = new ArrayList<>();
         queue.add(root);
 
         int c = 0;
         while (queue.size() > 0 && c++ < max) {
-            var node = queue.poll();
+            ASTNode node = queue.poll();
             list.add(node.getLabel());
             queue.addAll(node.getChildren());
         }

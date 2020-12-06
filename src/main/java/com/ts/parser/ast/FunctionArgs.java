@@ -1,5 +1,6 @@
 package com.ts.parser.ast;
 
+import com.ts.lexer.Token;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.PeekTokenIterator;
 
@@ -11,11 +12,11 @@ public class FunctionArgs extends ASTNode {
 
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
 
-        var args = new FunctionArgs();
+        FunctionArgs args = new FunctionArgs();
 
         while (it.peek().isType()) {
-            var type = it.next();
-            var variable = (Variable) Factor.parse(it);
+            Token type = it.next();
+            Variable variable = (Variable) Factor.parse(it);
             variable.setTypeLexeme(type);
             args.addChild(variable);
 

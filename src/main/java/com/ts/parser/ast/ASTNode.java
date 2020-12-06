@@ -3,7 +3,9 @@ package com.ts.parser.ast;
 import com.ts.lexer.Token;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class ASTNode {
 
@@ -69,7 +71,7 @@ public abstract class ASTNode {
         }
 
         System.out.println(StringUtils.leftPad(" ", indent * 2) + label);
-        for (var child : children) {
+        for (ASTNode child : children) {
             child.print(indent + 1);
         }
     }
@@ -105,7 +107,7 @@ public abstract class ASTNode {
 
     public void replace(ASTNode node) {
         if (this.parent != null) {
-            var idx = this.parent.children.indexOf(this);
+            int idx = this.parent.children.indexOf(this);
             this.parent.children.set(idx, node);
             //this.parent = null;
             //this.children = null;

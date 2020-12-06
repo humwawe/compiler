@@ -1,5 +1,6 @@
 package com.ts.parser.ast;
 
+import com.ts.lexer.Token;
 import com.ts.lexer.TokenType;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.PeekTokenIterator;
@@ -15,22 +16,22 @@ public class FunctionDeclareStmt extends Stmt {
         it.nextMatch("func");
 
         // func add() int {}
-        var func = new FunctionDeclareStmt();
-        var lexeme = it.peek();
-        var functionVariable = (Variable) Factor.parse(it);
+        FunctionDeclareStmt func = new FunctionDeclareStmt();
+        Token lexeme = it.peek();
+        Variable functionVariable = (Variable) Factor.parse(it);
         func.setLexeme(lexeme);
         func.addChild(functionVariable);
         it.nextMatch("(");
-        var args = FunctionArgs.parse(it);
+        ASTNode args = FunctionArgs.parse(it);
         it.nextMatch(")");
         func.addChild(args);
-        var keyword = it.nextMatch(TokenType.KEYWORD);
+        Token keyword = it.nextMatch(TokenType.KEYWORD);
         if (!keyword.isType()) {
             throw new ParseException(keyword);
         }
 
         functionVariable.setTypeLexeme(keyword);
-        var block = Block.parse(it);
+        ASTNode block = Block.parse(it);
         func.addChild(block);
         return func;
     }

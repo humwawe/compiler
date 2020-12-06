@@ -13,8 +13,8 @@ public class Factor extends ASTNode {
     }
 
     public static ASTNode parse(PeekTokenIterator it) {
-        var token = it.peek();
-        var type = token.getType();
+        Token token = it.peek();
+        TokenType type = token.getType();
 
         if (type == TokenType.VARIABLE) {
             it.next();

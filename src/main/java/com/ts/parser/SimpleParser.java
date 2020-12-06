@@ -11,9 +11,8 @@ public class SimpleParser {
     // Expr -> digit + Expr | digit
     // digit -> 0|1|2|3|4|5|...|9
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
-
-        var expr = new Expr();
-        var scalar = Factor.parse(it);
+        Expr expr = new Expr();
+        ASTNode scalar = Factor.parse(it);
         // base condition
         if (!it.hasNext()) {
             return scalar;
@@ -24,7 +23,7 @@ public class SimpleParser {
         expr.setLabel("+");
         expr.addChild(scalar);
         expr.setType(ASTNodeTypes.BINARY_EXPR);
-        var rightNode = parse(it);
+        ASTNode rightNode = parse(it);
         expr.addChild(rightNode);
         return expr;
     }

@@ -1,5 +1,6 @@
 package com.ts.parser.ast;
 
+import com.ts.lexer.Token;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.PeekTokenIterator;
 
@@ -14,17 +15,17 @@ public class IfStmt extends Stmt {
 
     // IfStmt -> If(Expr) Block Tail
     public static ASTNode parseIF(PeekTokenIterator it) throws ParseException {
-        var lexeme = it.nextMatch("if");
+        Token lexeme = it.nextMatch("if");
         it.nextMatch("(");
-        var ifStmt = new IfStmt();
+        IfStmt ifStmt = new IfStmt();
         ifStmt.setLexeme(lexeme);
-        var expr = Expr.parse(it);
+        ASTNode expr = Expr.parse(it);
         ifStmt.addChild(expr);
         it.nextMatch(")");
-        var block = Block.parse(it);
+        ASTNode block = Block.parse(it);
         ifStmt.addChild(block);
 
-        var tail = parseTail(it);
+        ASTNode tail = parseTail(it);
         if (tail != null) {
             ifStmt.addChild(tail);
         }
@@ -38,7 +39,7 @@ public class IfStmt extends Stmt {
             return null;
         }
         it.nextMatch("else");
-        var lookahead = it.peek();
+        Token lookahead = it.peek();
 
         if ("{".equals(lookahead.getValue())) {
             return Block.parse(it);
@@ -60,7 +61,7 @@ public class IfStmt extends Stmt {
 
     public ASTNode getElseBlock() {
 
-        var block = this.getChild(2);
+        ASTNode block = this.getChild(2);
         if (block instanceof Block) {
             return block;
         }
@@ -68,7 +69,7 @@ public class IfStmt extends Stmt {
     }
 
     public ASTNode getElseIfStmt() {
-        var ifStmt = this.getChild(2);
+        ASTNode ifStmt = this.getChild(2);
         if (ifStmt instanceof IfStmt) {
             return ifStmt;
         }

@@ -22,7 +22,7 @@ public class GraphvizHelpler {
     }
 
     private String visEdge(ASTNode a, ASTNode b) {
-        var edgeStr = String.format("\"%s\" -> \"%s\"\n",
+        String edgeStr = String.format("\"%s\" -> \"%s\"\n",
                 nodeLabels.get(a),
                 nodeLabels.get(b)
         );
@@ -34,15 +34,15 @@ public class GraphvizHelpler {
     }
 
     public String toDot(ASTNode root) {
-        var queue = new LinkedList<ASTNode>();
+        LinkedList<ASTNode> queue = new LinkedList<ASTNode>();
         queue.add(root);
         StringBuilder str = new StringBuilder();
         while (queue.size() > 0) {
-            var node = queue.poll();
+            ASTNode node = queue.poll();
             if (!nodeLabels.containsKey(node)) {
                 str.append(visNode(node));
             }
-            for (var child : node.getChildren()) {
+            for (ASTNode child : node.getChildren()) {
                 if (!nodeLabels.containsKey(child)) {
                     str.append(visNode(child));
                 }

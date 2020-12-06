@@ -2,12 +2,12 @@ package parser;
 
 import com.ts.lexer.Lexer;
 import com.ts.lexer.exception.LexicalException;
-import org.junit.jupiter.api.Test;
 import com.ts.parser.ast.ASTNode;
 import com.ts.parser.ast.Expr;
 import com.ts.parser.util.ParseException;
 import com.ts.parser.util.ParserUtils;
 import com.ts.parser.util.PeekTokenIterator;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -62,8 +62,8 @@ public class ParseExprTests {
 
     private ASTNode createExpr(String src) throws LexicalException, ParseException {
         var lexer = new Lexer();
-        var tokens = lexer.analyse(src.chars().mapToObj(x ->(char)x));
+        var tokens = lexer.analyse(src.chars().mapToObj(x -> (char) x));
         var tokenIt = new PeekTokenIterator(tokens.stream());
-        return Expr.parse( tokenIt);
+        return Expr.parse(tokenIt);
     }
 }

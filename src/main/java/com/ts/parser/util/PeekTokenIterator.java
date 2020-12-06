@@ -13,7 +13,7 @@ public class PeekTokenIterator extends PeekIterator<Token> {
     }
 
     public Token nextMatch(String value) throws ParseException {
-        var token = this.next();
+        Token token = this.next();
         if (!token.getValue().equals(value)) {
             throw new ParseException(token);
         }
@@ -21,7 +21,7 @@ public class PeekTokenIterator extends PeekIterator<Token> {
     }
 
     public Token nextMatch(TokenType type) throws ParseException {
-        var token = this.next();
+        Token token = this.next();
         if (!token.getType().equals(type)) {
             throw new ParseException(token);
         }

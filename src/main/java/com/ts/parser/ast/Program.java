@@ -9,8 +9,8 @@ public class Program extends Block {
     }
 
     public static ASTNode parse(PeekTokenIterator it) throws ParseException {
-        var block = new Program();
-        ASTNode stmt = null;
+        Program block = new Program();
+        ASTNode stmt;
         while ((stmt = Stmt.parseStmt(it)) != null) {
             block.addChild(stmt);
         }

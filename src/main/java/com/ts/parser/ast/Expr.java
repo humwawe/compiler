@@ -45,11 +45,11 @@ public class Expr extends ASTNode {
     }
 
     private static ASTNode E_(int k, PeekTokenIterator it) throws ParseException {
-        var token = it.peek();
-        var value = token.getValue();
+        Token token = it.peek();
+        String value = token.getValue();
 
         if (table.get(k).contains(value)) {
-            var expr = new Expr(ASTNodeTypes.BINARY_EXPR, it.nextMatch(value));
+            Expr expr = new Expr(ASTNodeTypes.BINARY_EXPR, it.nextMatch(value));
             expr.addChild(Objects.requireNonNull(combine(it, () -> E(k + 1, it), () -> E_(k, it))));
             return expr;
 
@@ -58,16 +58,16 @@ public class Expr extends ASTNode {
     }
 
     private static ASTNode U(PeekTokenIterator it) throws ParseException {
-        var token = it.peek();
-        var value = token.getValue();
+        Token token = it.peek();
+        String value = token.getValue();
 
         if ("(".equals(value)) {
             it.nextMatch("(");
-            var expr = E(0, it);
+            ASTNode expr = E(0, it);
             it.nextMatch(")");
             return expr;
         } else if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
-            var t = it.peek();
+            Token t = it.peek();
             it.nextMatch(value);
             Expr unaryExpr = new Expr(ASTNodeTypes.UNARY_EXPR, t);
             unaryExpr.addChild(E(0, it));
@@ -78,7 +78,7 @@ public class Expr extends ASTNode {
 
 
     private static ASTNode F(PeekTokenIterator it) throws ParseException {
-        var factor = Factor.parse(it);
+        ASTNode factor = Factor.parse(it);
         if (factor == null) {
             return null;
         }
@@ -89,11 +89,11 @@ public class Expr extends ASTNode {
     }
 
     private static ASTNode combine(PeekTokenIterator it, ExprHOF aFunc, ExprHOF bFunc) throws ParseException {
-        var a = aFunc.hoc();
+        ASTNode a = aFunc.hoc();
         if (a == null) {
             return it.hasNext() ? bFunc.hoc() : null;
         }
-        var b = it.hasNext() ? bFunc.hoc() : null;
+        ASTNode b = it.hasNext() ? bFunc.hoc() : null;
         if (b == null) {
             return a;
         }
@@ -109,7 +109,7 @@ public class Expr extends ASTNode {
         if (!it.hasNext()) {
             return null;
         }
-        var a = aFunc.hoc();
+        ASTNode a = aFunc.hoc();
         if (a != null) {
             return a;
         }
